@@ -2,6 +2,7 @@
 package dev.sgp.web;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,15 +22,17 @@ public class ListerCollaborateursController extends HttpServlet {
 	private static final long serialVersionUID = -6035975045435407352L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws
-	ServletException, IOException {
-	// recupere la valeur d'un parametre dont le nom est avecPhoto
-	String avecPhotoParam = req.getParameter("avec  Photo");
-	// recupere la valeur d'un parametre dont le nom est departement
-	String departementParam = req.getParameter("departement");
-	resp.setContentType("text/html");
-	// code HTML ecrit dans le corps de la reponse
-	resp.getWriter().write(	"<h1>Liste des collaborateurs</h1>" + "<ul>"+ "<li>avecPhoto="+ avecPhotoParam + "</li>"+ "<li>departement="+ departementParam + "</li>"+ "</ul>");
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		
+		req.setAttribute("listeNoms", Arrays.asList("Robert", "Jean", "Hugues"));
+		req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp").forward(req, resp);
+		
+		/* String avecPhotoParam = req.getParameter("avec  Photo");
+		String departementParam = req.getParameter("departement");
+		resp.setContentType("text/html");
+
+		resp.getWriter().write("<h1>Liste des collaborateurs</h1>" + "<ul>" + "<li>avecPhoto=" + avecPhotoParam
+				+ "</li>" + "<li>departement=" + departementParam + "</li>" + "</ul>"); */
 	}
 }
-
