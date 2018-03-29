@@ -2,12 +2,15 @@
 package dev.sgp.web;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
+
+import dev.sgp.entite.Collaborateur;
+import dev.sgp.service.CollaborateurService;
+import dev.sgp.util.Constantes;
 
 /**
  * @author Axel B.
@@ -17,22 +20,28 @@ import javax.servlet.http.HttpServletResponse;
 public class ListerCollaborateursController extends HttpServlet {
 	/**
 	 * serialVersionUID : long
-	 * 
-	 */
-	private static final long serialVersionUID = -6035975045435407352L;
+	 * */
+	 private static final long serialVersionUID = -6035975045435407352L;
 
+	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
+	
+	
+	{ collabService.listerCollaborateurs().add(new Collaborateur("Charles", "Charly", LocalDate.of(2010, 03, 02) , 
+            "4 rue Piaf,Saint-Herblain", "123456789101112", "charles.charly@societe.com", "/img/app_photo.jpg", ZonedDateTime.now(),true)); 
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
-		req.setAttribute("listeNoms", Arrays.asList("Robert", "Jean", "Hugues"));
-		req.getRequestDispatcher("/WEB-INF/views/collab/listerCollaborateurs.jsp").forward(req, resp);
 		
-		/* String avecPhotoParam = req.getParameter("avec  Photo");
-		String departementParam = req.getParameter("departement");
-		resp.setContentType("text/html");
-
-		resp.getWriter().write("<h1>Liste des collaborateurs</h1>" + "<ul>" + "<li>avecPhoto=" + avecPhotoParam
-				+ "</li>" + "<li>departement=" + departementParam + "</li>" + "</ul>"); */
+		req.setAttribute("listCollaborateur", collabService.listerCollaborateurs());
+		req.getRequestDispatcher("/WEB-INF/views/collab/index.jsp").forward(req, resp);
+		
+		
+		
+	}
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 	}
 }

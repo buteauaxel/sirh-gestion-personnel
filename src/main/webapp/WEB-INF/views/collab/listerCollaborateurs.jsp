@@ -13,18 +13,19 @@
 	<h2>PAR ICI LA MONNAIE</h2>
 
 	<ul>
-		<% try {
-			List<String> listeNoms = (List<String>) request.getAttribute("listeNoms");
-			for (String nom : listeNoms) {
+		<%
+			try {
+				List<String> listeNoms = (List<String>) request.getAttribute("listeNoms");
+				for (String nom : listeNoms) {
 		%>
-		<li><%= nom %></li>
+		<li><%=nom%></li>
 
-		<%	
+		<%
 			}
-			} catch(Exception e) {
-	            out.println("An exception occurred: " + e.getMessage());
-	    		
-	    			}
+			} catch (Exception e) {
+				out.println("An exception occurred: " + e.getMessage());
+
+			}
 		%>
 
 	</ul>
